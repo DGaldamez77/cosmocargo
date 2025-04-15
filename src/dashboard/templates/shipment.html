@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shipment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+
+<body>
+    <form action="/shipment/{{ data[0] }}" method="post">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    Weight:
+                </td>
+                <td>
+                    <input type="text" name="weight" value="{{data[2]}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Volume:
+                </td>
+                <td>
+                    <input type="text" name="volume" value="{{data[3]}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    ETA:
+                </td>
+                <td>
+                    <input type="text" name="eta" value="{{data[4]}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Status:
+                </td>
+                <td>
+                    <select name="status">
+                        {% for value in ref_data["shipment_status"] %}
+                        <option selected={{data[5] == value[1]}} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Forecast Origin Wind Velocity:
+                </td>
+                <td>
+                    <input type="text" name="fow_velocity" value="{{data[6]}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Forecast Origin Wind Direction:
+                </td>
+                <td>
+                    <input type="text" name="fow_direction" value="{{data[7]}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Forecast Origin Precipitation Chance:
+                </td>
+                <td>
+                    <input type="text" name="fop_chance" value="{{data[8]}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Forecast Origin Precipitation Kind:
+                </td>
+                <td>
+                    <select name="fop_kind" value="{{data[9]}}">
+                        {% for value in ref_data["precipitation_kinds"] %}
+                        <option selected={{data[9] == value[1]}} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Origin Solar System:
+                </td>
+                <td>
+                    <select name="o_solar_system" value={{data[10]}}>
+                        {% for value in ref_data["solar_systems"] %}
+                        <option selected={{data[10] == value[1]}} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Origin Planet:
+                </td>
+                <td>
+                    <select name="o_planet">
+                        {% for value in ref_data["planets"] %}
+                        <option {{ "selected" if data[11] == value[1] }} value{{data[11] == value[1]}} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Origin Country:
+                </td>
+                <td>
+                    <select name="o_country">
+                        {% for value in ref_data["countries"] %}
+                        <option {{ "selected" if data[12] == value[1] }} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Origin Address:
+                </td>
+                <td>
+                    <input type="text" name="o_address" value="{{data[13]}}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Destination Solar System:
+                </td>
+                <td>
+                    <select name="d_solar_system">
+                        {% for value in ref_data["solar_systems"] %}
+                        <option {{ "selected" if data[14] == value[1] }} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Destination Planet:
+                </td>
+                <td>
+                    <select name="d_planet">
+                        {% for value in ref_data["planets"] %}
+                        <option {{ "selected" if data[15] == value[1] }} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Destination Country:
+                </td>
+                <td>
+                    <select name="d_country">
+                        {% for value in ref_data["countries"] %}
+                        <option {{ "selected" if data[16] == value[1] }} value="{{value[0]}}">{{value[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Destination Address:
+                </td>
+                <td>
+                    <input type="text" name="d_address" value="{{data[17]}}">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" class="btn btn-primary" value="Update">
+    </form>
+</body>
+
+</html>

@@ -1,2 +1,8 @@
 
 logs/
+
+.DS_Store
+
+src/dashboard/.venv/
+
+src/.venv/
