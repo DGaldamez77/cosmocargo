@@ -1,0 +1,1 @@
+DB_NAME=cosmocargo DB_USER=cosmocargo_service DB_PASSWORD=cosmocargo DB_HOST=localhost DB_PORT=5432 /usr/local/bin/python3 /app/etl.py /app/etl_data/sample_data.json >> /app/etl_data/etl.log 2>&1 

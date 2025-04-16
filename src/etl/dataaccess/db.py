@@ -69,11 +69,11 @@ def get_or_create(conn: psycopg2.extensions.connection, table_name: str, value: 
 
 def write_to_db(shipments: list):
     conn = psycopg2.connect(
-        dbname=os.environ.get("DB_NAME"), #"cosmocargo",
-        user=os.environ.get("DB_USER"), #"cosmocargo_service",
-        password=os.environ.get("DB_PASSWORD"), #"cosmocargo",
-        host=os.environ.get("DB_HOST"), #"localhost",
-        port=os.environ.get("DB_PORT"), #"5432"
+        dbname=os.environ.get("DB_NAME"),
+        user=os.environ.get("DB_USER"),
+        password=os.environ.get("DB_PASSWORD"),
+        host=os.environ.get("DB_HOST"),
+        port=os.environ.get("DB_PORT"),
     )
 
     metrics = {
@@ -82,6 +82,7 @@ def write_to_db(shipments: list):
     }
 
     for shipment in shipments:
+        print(shipment)
         shipment["shipment_status_id"] = get_or_create(conn, "shipment_status", shipment["status"])    
         shipment["forecast_orogin_precipitation_kind_id"] = get_or_create(conn, "precipitation_kind", shipment["forecastOriginPrecipitationKind"])
         shipment["origin_solar_system_id"] = get_or_create(conn, "solar_system", shipment["originSolarSystem"])    

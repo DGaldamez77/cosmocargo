@@ -1,4 +1,4 @@
-import json, sys
+import json, sys, datetime
 from dataaccess import db
 
 def read_json_from_file(file_path: str) -> dict:
@@ -14,7 +14,7 @@ def read_json_from_file(file_path: str) -> dict:
 
 if __name__ == "__main__":
     print(f"\n=============================================")
-    print("job started")
+    print("job started at " + str(datetime.datetime.now(datetime.timezone.utc)))
     print(f"=============================================")
 
     if len(sys.argv) <= 1:
@@ -26,5 +26,6 @@ if __name__ == "__main__":
     if data == None:
         sys.exit(1)
 
+    print("file read... starting to process")
     db.write_to_db(data['shipments'])
     

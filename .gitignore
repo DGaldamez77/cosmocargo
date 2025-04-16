@@ -6,3 +6,7 @@ logs/
 src/dashboard/.venv/
 
 src/.venv/
+
+.vscode/launch.json
+
+*.log
