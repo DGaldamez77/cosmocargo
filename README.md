@@ -59,7 +59,9 @@ There is a Dockerfile to build the image of the ETL job.  From the ETL folder, r
 
 and to create the container that runs it, execute the following command
 
-> docker run --network=host -v /path_to_your_data_folder:/app/etl_data -e DB_PASSWORD=cosmocargo --name=cosmocargo-etl -t cosmocargo-etl
+> docker run --network=host -v /path_to_your_data_folder:/app/etl_data -e DB_PASSWORD=cosmocargo --name=cosmocargo-etl -d -t cosmocargo-etl
+
+This docker container does not run the ETL python file, instead it sets up and runs cron and the cron schedule file is what calls the python file.  Log file of execution is being persisteed in the data file as etl.log
 
 4. To run the UI, just switch to the dashboard folder and run flask to start the service.  From there you can connect on localhost:5000
 
@@ -67,3 +69,10 @@ Since the DB and credentials are read from environment, they would need to be pa
 
 >  DB_NAME=cosmocargo DB_USER=cosmocargo_service DB_PASSWORD=cosmocargo DB_HOST=localhost DB_PORT=5432 flask run --debug
 
+Alternatively, the UI can be run thru docker.  Just like for ETL, the docker image can be created with the following command:
+
+> docker build -t cosmocargo-dash .
+
+and to run the container with the this command:
+
+> docker run -e DB_PASSWORD=cosmocargo --name=cosmocargo-dash -p 5000:5000 -d -t cosmocargo-dash

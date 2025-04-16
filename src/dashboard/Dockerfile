@@ -2,7 +2,6 @@ FROM python:3.14-rc-slim-bullseye
 
 RUN apt-get update \
     && apt-get -y install libpq-dev gcc \
-    && apt-get update && apt-get install -y cron \
     && pip install psycopg2 \
     && apt-get install -y --no-install-recommends --no-install-suggests \
     build-essential default-libmysqlclient-dev pkg-config \
@@ -13,11 +12,13 @@ COPY ./requirements.txt /app
 RUN pip install --no-cache-dir --requirement /app/requirements.txt
 COPY . /app
 
-COPY ./scripts/cron /etc/cron.d/etl-cron
-RUN chmod 0644 /etc/cron.d/etl-cron
-RUN crontab /etc/cron.d/etl-cron
-RUN chmod +x /app/scripts/runjob-for-docker.sh
+ENV FLASK_APP=app.py
+ENV DB_NAME=cosmocargo
+ENV DB_USER=cosmocargo_service
+ENV DB_PASSWORD=cosmocargo
+ENV DB_HOST=172.17.0.1
+ENV DB_PORT=5432
 
-VOLUME /app/etl_data
+EXPOSE 8090
 
-CMD ["cron", "-f"]
+CMD ["flask", "run", "--host=0.0.0.0"]
